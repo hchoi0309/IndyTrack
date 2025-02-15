@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
+/*
+By extending JpaRepository we automatically get a set of functions to create, delete or update students as well as finding students.
+JpaRepository<Student, Long> indicates that the entity in teh repository is Student and the identifier is Long
+*/
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
     @Query(value = "select * from students s " +
