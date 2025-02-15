@@ -4,9 +4,7 @@ import com.example.cms.controller.dto.CourseDto;
 import com.example.cms.controller.exceptions.CourseNotFoundException;
 import com.example.cms.controller.exceptions.ProfessorNotFoundException;
 import com.example.cms.model.entity.Course;
-import com.example.cms.model.entity.Professor;
 import com.example.cms.model.repository.CourseRepository;
-import com.example.cms.model.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +16,6 @@ import java.util.Map;
 public class CourseController {
     @Autowired
     private final CourseRepository repository;
-
-    @Autowired
-    private ProfessorRepository professorRepository;
 
     public CourseController(CourseRepository repository) {
         this.repository = repository;
@@ -36,9 +31,9 @@ public class CourseController {
         Course newCourse = new Course();
         newCourse.setName(courseDto.getName());
         newCourse.setCode(courseDto.getCode());
-        Professor professor = professorRepository.findById(courseDto.getProfessorId()).orElseThrow(
-                () -> new ProfessorNotFoundException(courseDto.getProfessorId()));
-        newCourse.setProfessor(professor);
+//        Professor professor = professorRepository.findById(courseDto.getProfessorId()).orElseThrow(
+//                () -> new ProfessorNotFoundException(courseDto.getProfessorId()));
+//        newCourse.setProfessor(professor);
         return repository.save(newCourse);
     }
 
@@ -53,17 +48,15 @@ public class CourseController {
         return repository.findById(courseCode)
                 .map(course -> {
                     course.setName(courseDto.getName());
-                    Professor professor = professorRepository.findById(courseDto.getProfessorId()).orElseThrow(
-                            () -> new ProfessorNotFoundException(courseDto.getProfessorId()));
-                    course.setProfessor(professor);
+//                    course.setCode(courseDto.getCode());
+                    course.setDescription((courseDto.getDescription()));
                     return repository.save(course);
                 })
                 .orElseGet(() -> {
                     Course newCourse = new Course();
                     newCourse.setCode(courseCode);
-                    Professor professor = professorRepository.findById(courseDto.getProfessorId()).orElseThrow(
-                            () -> new ProfessorNotFoundException(courseDto.getProfessorId()));
-                    newCourse.setProfessor(professor);
+                    newCourse.setName(courseDto.getName());
+                    newCourse.setDescription(courseDto.getDescription());
                     return repository.save(newCourse);
                 });
     }
