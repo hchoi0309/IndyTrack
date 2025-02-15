@@ -24,18 +24,14 @@ public class Course {
     @NotEmpty
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="professorId")
-    private Professor professor;
+    @NotEmpty
+    @Column(name = "description", length = 500)
+    private String description;
 
-    @OneToMany(mappedBy = "course")
-    @Nullable
-    private List<CourseMark> marks = new ArrayList<>();
-
-    public Course(String code, String name, Professor professor){
+    public Course(String code, String name, String description){
         this.code = code;
         this.name = name;
-        this.professor = professor;
+        this.description = description;
     }
 
 }

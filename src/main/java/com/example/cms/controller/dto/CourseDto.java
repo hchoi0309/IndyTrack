@@ -9,5 +9,5 @@ import lombok.Setter;
 public class CourseDto {
     private String code;
     private String name;
-    private Long professorId;
+    private String description;
 }
