@@ -19,7 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "students")
-public class Student extends Person {
+public class Student extends User {
 
 //    @OneToMany(mappedBy = "student")
 //    @Nullable
