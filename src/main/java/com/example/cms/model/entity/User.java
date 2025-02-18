@@ -13,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @Getter
 @Setter
-public abstract class Person {
+public abstract class User {
 
     @Id
     private long id;
