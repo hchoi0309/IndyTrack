@@ -13,3 +13,5 @@ INSERT INTO students (id, firstName, lastName, email) VALUES (5555, 'Jon', 'Snow
 INSERT INTO courses (code, name, description) VALUES ('GOT123', 'A Game of Thrones', 'AAA');
 INSERT INTO courses (code, name, description) VALUES ('GOT456', 'A Clash of Kings', 'BBB');
 INSERT INTO courses (code, name, description) VALUES ('GOT789', 'A Storm of Swords', 'CCC');
+
+INSERT INTO comments (studentId, courseId, time, body) VALUES (5555, 'GOT123', '1523', 'A comment')
