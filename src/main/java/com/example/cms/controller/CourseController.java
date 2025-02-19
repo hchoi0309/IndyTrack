@@ -31,9 +31,6 @@ public class CourseController {
         Course newCourse = new Course();
         newCourse.setName(courseDto.getName());
         newCourse.setCode(courseDto.getCode());
-//        Professor professor = professorRepository.findById(courseDto.getProfessorId()).orElseThrow(
-//                () -> new ProfessorNotFoundException(courseDto.getProfessorId()));
-//        newCourse.setProfessor(professor);
         return repository.save(newCourse);
     }
 
