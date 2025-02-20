@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,15 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "students")
 @NoArgsConstructor
 @Getter
 @Setter
-@Data
+@Table(name = "students")
 public class Student extends User {
 
-    // @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    // @Nullable
-    // private ArrayList<CoursePlan> coursePlans = new ArrayList<>();
+//    @OneToMany(mappedBy = "student")
+//    @Nullable
+//    private List<CourseMark> marks  = new ArrayList<>();
 
 }
