@@ -6,9 +6,11 @@ import lombok.Setter;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.swing.text.html.Option;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @NoArgsConstructor
@@ -28,10 +30,21 @@ public class Course {
     @Column(name = "description", length = 500)
     private String description;
 
-    public Course(String code, String name, String description){
+//    @Nullable
+//    private List<String> comments = new ArrayList<>();
+
+//    @Nullable
+//    private Course prequisite;
+
+    public Course(
+            String code,
+            String name,
+            Optional<String> description)
+    {
         this.code = code;
         this.name = name;
-        this.description = description;
+
+        this.description = description.orElse(null);
     }
 
 }

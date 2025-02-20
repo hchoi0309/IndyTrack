@@ -15,4 +15,14 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
             "where lower(s.firstName) like lower(concat('%', :searchTerm, '%')) " +
             "or lower(s.lastName) like lower(concat('%', :searchTerm, '%'))", nativeQuery = true)
     List<Student> search(@Param("searchTerm") String searchTerm);
+
+    @Query(value = "select * from students s " +
+            "where s.id = :searchTerm", nativeQuery = true)
+    List<Student> findStudentById(@Param("searchTerm") Long searchTerm);
+
+
+    @Query(value = "select * from students where " +
+            "id IN (SELECT s.id FROM STUDENTS s INNER JOIN MARKS m ON s.id = m.studentID " +
+            "group by s.id HAVING AVG(Mark) >= 90)", nativeQuery = true)
+    List<Student> findTopStudents();
 }
