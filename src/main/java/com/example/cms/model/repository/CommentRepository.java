@@ -2,6 +2,7 @@ package com.example.cms.model.repository;
 
 import com.example.cms.model.entity.Comment;
 import com.example.cms.model.entity.CommentKey;
+
 import com.example.cms.model.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,8 +13,8 @@ import java.util.List;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, CommentKey> {
-    @Query(value = "select * from comments c " +
+    @Query(value = "select * from comment c " +
             "where lower(c.courseId) like lower(concat('%', :searchTerm, '%')) ", nativeQuery = true)
-    List<Student> search(@Param("searchTerm") String searchTerm);
+    List<Comment> findCommentById(@Param("searchTerm") String searchTerm);
 
 }
