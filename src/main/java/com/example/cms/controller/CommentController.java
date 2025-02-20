@@ -1,8 +1,6 @@
 package com.example.cms.controller;
 
-import com.example.cms.controller.dto.CourseDto;
 import com.example.cms.controller.exceptions.CommentNotFoundException;
-import com.example.cms.controller.exceptions.CourseNotFoundException;
 import com.example.cms.model.entity.Comment;
 import com.example.cms.model.entity.CommentKey;
 import com.example.cms.model.entity.Course;
@@ -14,6 +12,12 @@ import com.example.cms.model.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
+
+import com.example.cms.model.entity.Comment;
+import com.example.cms.model.repository.CommentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -36,16 +40,17 @@ public class CommentController {
         this.commentRepository = commentRepository;
         this.courseRepository = courseRepository;
         this.studentRepository = studentRepository;
+
     }
 
     @GetMapping("/comments")
     List<Comment> retrieveAllComment() {
-        return commentRepository.findAll();
+        return this.commentRepository.findAll();
     }
 
     @GetMapping("/comments/{code}")
     List<Comment> retrieveCourse(@PathVariable("code") String courseCode) {
-        List<Comment> comments = commentRepository.findCommentById(courseCode);
+        List<Comment> comments = this.commentRepository.findCommentById(courseCode);
         if (comments.isEmpty()) {
             throw new CommentNotFoundException(courseCode);
         }
@@ -54,8 +59,8 @@ public class CommentController {
 
     @PostMapping("/comments/post")
     Comment createCourse(@RequestBody CommentDto commentDto) {
-        List<Student> student = studentRepository.findStudentById(commentDto.getStudentId());
-        List<Course> course = courseRepository.findCourseById(commentDto.getCourseId());
+        List<Student> student = this.studentRepository.findStudentById(commentDto.getStudentId());
+        List<Course> course = this.courseRepository.findCourseById(commentDto.getCourseId());
 
         if (!student.isEmpty() && !course.isEmpty() && !commentDto.getBody().isEmpty()) {
             Comment newComment = new Comment();
@@ -70,10 +75,9 @@ public class CommentController {
             newComment.setTime(LocalDateTime.now().toString());
             newComment.setBody(commentDto.getBody());
 
-            return commentRepository.save(newComment);
+            return this.commentRepository.save(newComment);
         } else {
             throw new RuntimeException("Could not create comment: invalid student or course Id.");
         }
     }
-
 }
