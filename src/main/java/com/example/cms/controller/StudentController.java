@@ -57,9 +57,4 @@ public class StudentController {
     List<Student> searchStudent(@PathVariable("searchstring") String searchString) {
         return repository.search(searchString);
     }
-
-    @GetMapping("/students/top")
-    List<Student> retrieveTopStudents() {
-        return repository.findTopStudents();
-    }
 }
